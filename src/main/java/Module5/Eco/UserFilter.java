@@ -1,13 +1,9 @@
 package Module5.Eco;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FindingEcoUsers {
+public class UserFilter {
     private boolean isEcoUser(User user, double maxConsumption) {
         return (user.getWaterCountDay() + user.getWaterCountNight()) < maxConsumption &&
                 user.getGasCount() < maxConsumption &&

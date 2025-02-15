@@ -63,9 +63,6 @@ public class User {
         return electroCountNight;
     }
 
-
-
-
     @Override
     public String toString() {
         return "Users{" +

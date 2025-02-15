@@ -26,8 +26,12 @@ public class EcoFriendlyUser {
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("You need to enter a number");
             }
-            FileProcessor fileProcessor = new FileProcessor();
-            fileProcessor.fileProcessor(filePath, maxConsumption);
+            UserReader readerCSV = new UserReaderCSV(filePath);
+            UserParser userParseCSV = new UserParseCSV();
+            UserFilter filter = new UserFilter();
+            FileWriter fileWriterCSV = new EcoFileWriterCSV(filePath);
+            FileProcessor fileProcessor = new FileProcessor(readerCSV, userParseCSV, filter, fileWriterCSV);
+            fileProcessor.process(maxConsumption);
         } catch (IOException e) {
             System.err.println("Input/Output error: " + e.getMessage());
         } catch (IllegalArgumentException e) {
