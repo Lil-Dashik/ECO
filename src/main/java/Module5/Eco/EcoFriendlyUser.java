@@ -29,10 +29,10 @@ public class EcoFriendlyUser {
             UserReader readerCSV = new UserReaderCSV(filePath);
             UserParser userParseCSV = new UserParseCSV();
             PredicatesFilter predicatesFilter = new PredicatesFilter();
-            UserFilter filter = new UserFilter();
+            UserFilter ecoMaxFilter = new EcoUserFilter(predicatesFilter.filterCondition(maxConsumption));
             FileDataWriter fileWriterCSV = new EcoFileWriterCSV(filePath);
-            FileProcessor fileProcessor = new FileProcessor(readerCSV, userParseCSV, predicatesFilter, filter, fileWriterCSV);
-            fileProcessor.process(maxConsumption);
+            FileProcessor fileProcessor = new FileProcessor(readerCSV, userParseCSV, ecoMaxFilter, fileWriterCSV);
+            fileProcessor.process();
         } catch (IOException e) {
             System.err.println("Input/Output error: " + e.getMessage());
         } catch (IllegalArgumentException e) {
