@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.IOException;
 
+
 public class EcoFriendlyUser {
     public static void main(String[] args) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
@@ -22,15 +23,15 @@ public class EcoFriendlyUser {
             double maxConsumption;
             try {
                 maxConsumption = Double.parseDouble(reader.readLine());
-
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("You need to enter a number");
             }
             UserReader readerCSV = new UserReaderCSV(filePath);
             UserParser userParseCSV = new UserParseCSV();
+            PredicatesFilter predicatesFilter = new PredicatesFilter();
             UserFilter filter = new UserFilter();
-            FileWriter fileWriterCSV = new EcoFileWriterCSV(filePath);
-            FileProcessor fileProcessor = new FileProcessor(readerCSV, userParseCSV, filter, fileWriterCSV);
+            FileDataWriter fileWriterCSV = new EcoFileWriterCSV(filePath);
+            FileProcessor fileProcessor = new FileProcessor(readerCSV, userParseCSV, predicatesFilter, filter, fileWriterCSV);
             fileProcessor.process(maxConsumption);
         } catch (IOException e) {
             System.err.println("Input/Output error: " + e.getMessage());

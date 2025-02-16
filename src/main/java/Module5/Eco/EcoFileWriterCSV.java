@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-public class EcoFileWriterCSV implements FileWriter{
+public class EcoFileWriterCSV implements FileDataWriter {
     private final Path ecoUserFile;
 
     public EcoFileWriterCSV(Path filePath) throws IOException {
@@ -13,6 +13,7 @@ public class EcoFileWriterCSV implements FileWriter{
         if (parentDirectory == null) {
             throw new IOException("The parent directory cannot be identified.");
         }
+
 
         this.ecoUserFile = parentDirectory.resolve("EcoUser.csv");
         if (!Files.exists(ecoUserFile)) {
