@@ -1,16 +1,24 @@
 package Module5.Eco;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserParseCSV implements UserParser {
-    public List<User> parse(List<String> list) throws IOException {
-        if (list.isEmpty()) {
-            System.out.println("The file is empty.");
-            return new ArrayList<>();
-        }
+public class UserProviderCSV implements UserProvider {
+    private final Path filePath;
 
+    public UserProviderCSV(Path filePath) {
+        this.filePath = filePath;
+    }
+
+    @Override
+    public List<User> readAndParse() throws IOException {
+        if (!Files.exists(filePath) || !Files.isRegularFile(filePath)) {
+            throw new IOException("File not found: " + filePath);
+        }
+        List<String> list = Files.readAllLines(filePath);
         List<User> users = new ArrayList<>();
         for (int line = 1; line < list.size(); line++) {
             String[] parts = list.get(line).split("\\|");
@@ -33,3 +41,5 @@ public class UserParseCSV implements UserParser {
         return users;
     }
 }
+
+
